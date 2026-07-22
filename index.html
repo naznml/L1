@@ -605,10 +605,10 @@
         <h2 data-lang="ru">Тест по чтению</h2>
 
         <p class="section-intro" data-lang="kk">
-          1–5 сұрақтар — Lingua.com сайтындағы түпнұсқа сұрақтар. 6–9 сұрақтар — мәтін бойынша келуі мүмкін қосымша сұрақтар.
+       
         </p>
         <p class="section-intro" data-lang="ru">
-          Вопросы 1–5 — оригинальные вопросы с сайта Lingua.com. Вопросы 6–9 — дополнительные возможные вопросы по тексту.
+          
         </p>
 
         <div class="test-meta">
@@ -1055,8 +1055,8 @@
     function renderQuestions(){
       questionsEl.innerHTML = questions.map((item,index)=>{
         const letters = ["A","B","C","D"];
-        const typeKK = item.type === "original" ? "Түпнұсқа сұрақ" : "Мүмкін сұрақ";
-        const typeRU = item.type === "original" ? "Оригинальный вопрос" : "Возможный вопрос";
+        const typeKK = item.type === "original" ? "" : "";
+        const typeRU = item.type === "original" ? "" : "";
 
         return `
           <article class="question" data-question="${index}">
