@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ff655f" />
+  <title>My Name Is John — Reading Practice</title>
+  <style>
+    :root{
+      --accent:#ff655f;
+      --accent-dark:#e84f49;
+      --soft:#fff3f2;
+      --ink:#25272b;
+      --muted:#6d727a;
+      --line:#e8e9ed;
+      --card:#ffffff;
+      --page:#f7f7f9;
+      --good:#1f9d61;
+      --good-soft:#e8f8f0;
+      --bad:#d94a4a;
+      --bad-soft:#fff0f0;
+      --shadow:0 12px 30px rgba(35,36,42,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--page);
+      line-height:1.55;
+    }
+
+    button,input{font:inherit}
+    button{touch-action:manipulation}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--line);
+    }
+
+    .topbar-inner{
+      max-width:1120px;
+      margin:auto;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .logo{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:var(--accent);
+      color:white;
+      font-weight:900;
+      font-size:20px;
+      box-shadow:0 8px 18px rgba(255,101,95,.24);
+      flex:none;
+    }
+
+    .brand-text strong{display:block;font-size:15px}
+    .brand-text span{display:block;color:var(--muted);font-size:12px}
+
+    .lang-switch{
+      display:flex;
+      background:#f0f1f4;
+      padding:4px;
+      border-radius:13px;
+      flex:none;
+    }
+
+    .lang-btn{
+      border:0;
+      background:transparent;
+      color:#6d727a;
+      padding:8px 13px;
+      border-radius:10px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .lang-btn.active{
+      background:#fff;
+      color:var(--ink);
+      box-shadow:0 2px 8px rgba(0,0,0,.09);
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#fff 0%,#fff6f5 100%);
+      border-bottom:1px solid var(--line);
+    }
+
+    .hero-inner{
+      max-width:1120px;
+      margin:auto;
+      padding:42px 18px 34px;
+    }
+
+    .level{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:7px 11px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent-dark);
+      font-size:13px;
+      font-weight:850;
+      margin-bottom:13px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(32px,6vw,55px);
+      line-height:1.05;
+      letter-spacing:-1.7px;
+    }
+
+    .subtitle{
+      margin:0;
+      max-width:760px;
+      color:var(--muted);
+      font-size:17px;
+    }
+
+    .stats{
+      margin-top:24px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .stat{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px 14px;
+      font-size:14px;
+      box-shadow:0 4px 12px rgba(0,0,0,.035);
+    }
+
+    .tabs-wrap{
+      max-width:1120px;
+      margin:22px auto 0;
+      padding:0 18px;
+    }
+
+    .tabs{
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      padding-bottom:10px;
+      scrollbar-width:none;
+    }
+    .tabs::-webkit-scrollbar{display:none}
+
+    .tab-btn{
+      white-space:nowrap;
+      border:1px solid var(--line);
+      background:#fff;
+      color:#555b64;
+      padding:11px 15px;
+      border-radius:13px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .tab-btn.active{
+      color:#fff;
+      background:var(--accent);
+      border-color:var(--accent);
+      box-shadow:0 8px 18px rgba(255,101,95,.22);
+    }
+
+    main{
+      max-width:1120px;
+      margin:0 auto;
+      padding:14px 18px 60px;
+    }
+
+    .panel{display:none}
+    .panel.active{display:block}
+
+    .section-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:clamp(18px,4vw,30px);
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+
+    .section-card h2{
+      margin:0 0 8px;
+      font-size:clamp(24px,4vw,33px);
+      letter-spacing:-.6px;
+    }
+
+    .section-intro{
+      margin:0 0 20px;
+      color:var(--muted);
+    }
+
+    .test-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:9px;
+      margin:17px 0 19px;
+    }
+
+    .meta-pill{
+      border:1px solid var(--line);
+      background:#fafafa;
+      padding:8px 11px;
+      border-radius:12px;
+      font-size:13px;
+      font-weight:750;
+    }
+
+    .progress-box{
+      background:#f5f6f8;
+      border-radius:15px;
+      padding:13px 15px;
+      margin-bottom:18px;
+    }
+
+    .progress-line{
+      height:9px;
+      background:#dedfe4;
+      border-radius:999px;
+      overflow:hidden;
+      margin-top:8px;
+    }
+
+    .progress-fill{
+      height:100%;
+      width:0;
+      background:var(--accent);
+      border-radius:inherit;
+      transition:width .25s ease;
+    }
+
+    .question{
+      border:1px solid var(--line);
+      border-radius:19px;
+      padding:18px;
+      margin:14px 0;
+      background:#fff;
+    }
+
+    .q-top{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .q-number{
+      width:33px;
+      height:33px;
+      display:grid;
+      place-items:center;
+      border-radius:11px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:900;
+      flex:none;
+    }
+
+    .q-type{
+      font-size:12px;
+      font-weight:850;
+      color:#626872;
+      background:#f1f2f4;
+      padding:5px 9px;
+      border-radius:999px;
+    }
+
+    .question h3{
+      margin:0 0 14px;
+      font-size:18px;
+      line-height:1.38;
+    }
+
+    .options{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .option{
+      position:relative;
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      border:2px solid #e4e5e9;
+      border-radius:14px;
+      padding:13px;
+      cursor:pointer;
+      background:#fff;
+      transition:.16s ease;
+      min-height:54px;
+    }
+
+    .option:hover{border-color:#cfd1d7;background:#fafafa}
+    .option input{position:absolute;opacity:0;pointer-events:none}
+
+    .letter{
+      width:27px;
+      height:27px;
+      flex:none;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#eceef1;
+      font-weight:900;
+      color:#666c75;
+      text-transform:uppercase;
+    }
+
+    .option.selected{
+      border-color:var(--accent);
+      background:var(--soft);
+    }
+
+    .option.selected .letter{
+      background:var(--accent);
+      color:white;
+    }
+
+    .option.correct{
+      border-color:var(--good);
+      background:var(--good-soft);
+    }
+
+    .option.correct .letter{
+      background:var(--good);
+      color:#fff;
+    }
+
+    .option.wrong{
+      border-color:var(--bad);
+      background:var(--bad-soft);
+    }
+
+    .option.wrong .letter{
+      background:var(--bad);
+      color:#fff;
+    }
+
+    .explanation{
+      display:none;
+      margin-top:14px;
+      padding:14px;
+      border-radius:14px;
+      background:#f6f7f9;
+      border-left:4px solid var(--accent);
+    }
+
+    .explanation.show{display:block}
+    .explanation p{margin:5px 0}
+    .answer-line{font-weight:850}
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:22px;
+    }
+
+    .primary,.secondary{
+      border:0;
+      border-radius:14px;
+      padding:13px 18px;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .primary{
+      background:var(--accent);
+      color:#fff;
+      box-shadow:0 9px 18px rgba(255,101,95,.22);
+    }
+
+    .primary:hover{background:var(--accent-dark)}
+    .secondary{background:#eceef2;color:#333841}
+
+    .result{
+      display:none;
+      margin-top:18px;
+      padding:20px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#fff5f4,#fff);
+      border:1px solid #ffd8d5;
+    }
+
+    .result.show{display:block}
+    .score{
+      font-size:38px;
+      font-weight:950;
+      color:var(--accent-dark);
+      line-height:1;
+      margin:8px 0;
+    }
+
+    .reading-text{
+      font-size:17px;
+      max-width:850px;
+    }
+
+    .reading-text p{margin:0 0 18px}
+
+    .translation{
+      display:grid;
+      gap:14px;
+    }
+
+    .translation-block{
+      padding:17px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fcfcfd;
+    }
+
+    .translation-block p{margin:0 0 12px}
+    .translation-block p:last-child{margin-bottom:0}
+
+    .table-wrap{
+      overflow-x:auto;
+      border:1px solid var(--line);
+      border-radius:16px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:680px;
+    }
+
+    th,td{
+      text-align:left;
+      padding:12px 13px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+    }
+
+    th{
+      background:#f4f5f7;
+      font-size:13px;
+      color:#565c65;
+    }
+
+    tr:last-child td{border-bottom:0}
+
+    .tips{
+      display:grid;
+      gap:13px;
+      counter-reset:tips;
+    }
+
+    .tip{
+      position:relative;
+      padding:17px 17px 17px 60px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+    }
+
+    .tip::before{
+      counter-increment:tips;
+      content:counter(tips);
+      position:absolute;
+      left:17px;
+      top:16px;
+      width:30px;
+      height:30px;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:900;
+    }
+
+    .tip h3{margin:0 0 4px;font-size:17px}
+    .tip p{margin:0;color:var(--muted)}
+
+    .source{
+      margin-top:17px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .source a{color:var(--accent-dark);font-weight:800}
+
+    footer{
+      max-width:1120px;
+      margin:auto;
+      padding:0 18px 34px;
+      color:#8b9097;
+      font-size:13px;
+      text-align:center;
+    }
+
+    [data-lang]{display:none}
+    body.lang-kk [data-lang="kk"]{display:initial}
+    body.lang-ru [data-lang="ru"]{display:initial}
+    body.lang-kk div[data-lang="kk"],
+    body.lang-ru div[data-lang="ru"]{display:block}
+    body.lang-kk span[data-lang="kk"],
+    body.lang-ru span[data-lang="ru"]{display:inline}
+
+    @media(max-width:720px){
+      .brand-text{display:none}
+      .hero-inner{padding-top:30px}
+      .options{grid-template-columns:1fr}
+      .section-card{border-radius:18px;padding:17px}
+      .question{padding:15px}
+      .actions .primary,.actions .secondary{width:100%}
+    }
+  </style>
+</head>
+<body class="lang-kk">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo">A1</div>
+        <div class="brand-text">
+          <strong>English Reading</strong>
+          <span>Қазақша · Русский</span>
+        </div>
+      </div>
+
+      <div class="lang-switch" aria-label="Language switch">
+        <button class="lang-btn active" data-set-lang="kk">ҚАЗ</button>
+        <button class="lang-btn" data-set-lang="ru">РУС</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="level">A1 Reading</div>
+      <h1>My Name Is John</h1>
+      <p class="subtitle" data-lang="kk">
+        Джон Смиттің оқуы, достары және отбасы туралы мәтін. Мәтінді оқып, сұрақтарға жауап беріңіз.
+      </p>
+      <p class="subtitle" data-lang="ru">
+        Текст об учёбе, друзьях и семье Джона Смита. Прочитайте текст и ответьте на вопросы.
+      </p>
+
+      <div class="stats">
+        <div class="stat"><strong>9</strong> <span data-lang="kk">сұрақ</span><span data-lang="ru">вопросов</span></div>
+        <div class="stat"><strong>1</strong> <span data-lang="kk">дұрыс жауап</span><span data-lang="ru">правильный ответ</span></div>
+        <div class="stat"><strong>9</strong> <span data-lang="kk">ең жоғары балл</span><span data-lang="ru">максимальный балл</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tabs-wrap">
+    <nav class="tabs" aria-label="Sections">
+      <button class="tab-btn active" data-tab="test">
+        <span data-lang="kk">Тест</span><span data-lang="ru">Тест</span>
+      </button>
+      <button class="tab-btn" data-tab="text">
+        <span data-lang="kk">Мәтін</span><span data-lang="ru">Текст</span>
+      </button>
+      <button class="tab-btn" data-tab="translation">
+        <span data-lang="kk">Аударма</span><span data-lang="ru">Перевод</span>
+      </button>
+      <button class="tab-btn" data-tab="vocabulary">
+        <span data-lang="kk">Сөздік</span><span data-lang="ru">Словарь</span>
+      </button>
+      <button class="tab-btn" data-tab="synonyms">
+        <span data-lang="kk">Синонимдер</span><span data-lang="ru">Синонимы</span>
+      </button>
+      <button class="tab-btn" data-tab="strategy">
+        <span data-lang="kk">Орындау тәсілі</span><span data-lang="ru">Как выполнять</span>
+      </button>
+    </nav>
+  </div>
+
+  <main>
+    <section id="test" class="panel active">
+      <div class="section-card">
+        <h2 data-lang="kk">Reading тесті</h2>
+        <h2 data-lang="ru">Тест по чтению</h2>
+
+        <p class="section-intro" data-lang="kk">
+          1–5 сұрақтар — Lingua.com сайтындағы түпнұсқа сұрақтар. 6–9 сұрақтар — мәтін бойынша келуі мүмкін қосымша сұрақтар.
+        </p>
+        <p class="section-intro" data-lang="ru">
+          Вопросы 1–5 — оригинальные вопросы с сайта Lingua.com. Вопросы 6–9 — дополнительные возможные вопросы по тексту.
+        </p>
+
+        <div class="test-meta">
+          <div class="meta-pill">9 <span data-lang="kk">сұрақ</span><span data-lang="ru">вопросов</span></div>
+          <div class="meta-pill">1 <span data-lang="kk">дұрыс жауап</span><span data-lang="ru">правильный ответ</span></div>
+          <div class="meta-pill">9 <span data-lang="kk">балл</span><span data-lang="ru">баллов</span></div>
+        </div>
+
+        <div style="margin:18px 0 22px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fafafa;">
+          <h3 style="margin:0 0 10px;">
+            <span data-lang="kk">Аудио</span>
+            <span data-lang="ru">Аудио</span>
+          </h3>
+          <audio controls preload="metadata" style="width:100%;">
+            <source src="ScreenRecording_07-23-2026%2000-37-05_1.mp3" type="audio/mpeg">
+            <span data-lang="kk">Браузер аудионы қолдамайды.</span>
+            <span data-lang="ru">Браузер не поддерживает аудио.</span>
+          </audio>
+          <p style="margin:10px 0 0;color:var(--muted);font-size:13px;">
+            <span data-lang="kk">MP3 файлын index.html файлымен бір деңгейге жүктеңіз.</span>
+            <span data-lang="ru">Загрузите MP3-файл в ту же папку, где находится index.html.</span>
+          </p>
+        </div>
+
+        <div class="progress-box">
+          <div>
+            <strong data-lang="kk">Жауап беру барысы:</strong>
+            <strong data-lang="ru">Прогресс ответов:</strong>
+            <span id="progressText">0 / 9</span>
+          </div>
+          <div class="progress-line"><div id="progressFill" class="progress-fill"></div></div>
+        </div>
+
+        <div id="questions"></div>
+
+        <div class="actions">
+          <button id="checkBtn" class="primary">
+            <span data-lang="kk">Нәтижені көрсету</span>
+            <span data-lang="ru">Показать результат</span>
+          </button>
+          <button id="resetBtn" class="secondary">
+            <span data-lang="kk">Қайта бастау</span>
+            <span data-lang="ru">Начать заново</span>
+          </button>
+        </div>
+
+        <div id="result" class="result">
+          <h3 data-lang="kk">Нәтиже</h3>
+          <h3 data-lang="ru">Результат</h3>
+          <div id="score" class="score">0 / 9</div>
+          <p id="resultMessage"></p>
+        </div>
+
+        <p class="source">
+          <span data-lang="kk">1–5 сұрақтардың дереккөзі:</span>
+          <span data-lang="ru">Источник вопросов 1–5:</span>
+          <a href="https://lingua.com/english/reading/john/" target="_blank" rel="noopener">Lingua.com</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="text" class="panel">
+      <div class="section-card">
+        <h2>My Name Is John</h2>
+        <p class="section-intro" data-lang="kk">Алдымен мәтінді өзіңіз оқып шығыңыз, содан кейін тестке өтіңіз.</p>
+        <p class="section-intro" data-lang="ru">Сначала самостоятельно прочитайте текст, затем переходите к тесту.</p>
+
+        <article class="reading-text">
+          <p>
+            Hi! Nice to meet you! My name is John Smith. I am 19 and a student in college.
+            I go to college in New York. My favorite courses are Geometry, French, and History.
+            English is my hardest course. My professors are very friendly and smart.
+            It’s my second year in college now. I love it!
+          </p>
+          <p>
+            I live in a big house on Ivy Street. It’s near the college campus.
+            I share the house with three other students. Their names are Bill, Tony, and Paul.
+            We help each other with homework. On the weekend, we play football together.
+          </p>
+          <p>
+            I have a younger brother. He just started high school. He is 14 and lives with my parents.
+            They live on Mulberry Street in Boston. Sometimes they visit me in New York.
+            I am happy when they visit. My Mom always brings me sweets and candy when they come.
+            I really miss them, too!
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="translation" class="panel">
+      <div class="section-card">
+        <h2 data-lang="kk">Қазақша аударма</h2>
+        <h2 data-lang="ru">Перевод на русский</h2>
+
+        <div class="translation" data-lang="kk">
+          <div class="translation-block">
+            <p>
+              Сәлем! Танысқаныма қуаныштымын! Менің атым — Джон Смит. Мен 19 жастамын және колледж студентімін.
+              Мен Нью-Йорктегі колледжде оқимын. Менің сүйікті пәндерім — геометрия, француз тілі және тарих.
+              Ағылшын тілі — мен үшін ең қиын пән. Оқытушыларым өте мейірімді әрі ақылды.
+              Қазір колледждегі екінші жылым. Маған мұнда өте ұнайды!
+            </p>
+            <p>
+              Мен Айви-стриттегі үлкен үйде тұрамын. Ол колледж кампусына жақын орналасқан.
+              Үйде тағы үш студентпен бірге тұрамын. Олардың есімдері — Билл, Тони және Пол.
+              Біз бір-бірімізге үй тапсырмасын орындауға көмектесеміз. Демалыс күндері бірге футбол ойнаймыз.
+            </p>
+            <p>
+              Менің інім бар. Ол орта мектепті енді бастады. Ол 14 жаста және ата-анаммен бірге тұрады.
+              Олар Бостондағы Малберри-стритте тұрады. Кейде олар маған Нью-Йоркке қонаққа келеді.
+              Олар келгенде мен қуанамын. Анам келген сайын маған тәттілер мен кәмпит әкеледі.
+              Мен оларды қатты сағынамын!
+            </p>
+          </div>
+        </div>
+
+        <div class="translation" data-lang="ru">
+          <div class="translation-block">
+            <p>
+              Привет! Рад познакомиться! Меня зовут Джон Смит. Мне 19 лет, и я учусь в колледже.
+              Я хожу в колледж в Нью-Йорке. Мои любимые предметы — геометрия, французский язык и история.
+              Английский — мой самый трудный предмет. Мои преподаватели очень добрые и умные.
+              Сейчас я учусь на втором курсе. Мне очень нравится!
+            </p>
+            <p>
+              Я живу в большом доме на Айви-стрит. Он находится недалеко от кампуса колледжа.
+              Я делю дом ещё с тремя студентами. Их зовут Билл, Тони и Пол.
+              Мы помогаем друг другу с домашним заданием. По выходным мы вместе играем в футбол.
+            </p>
+            <p>
+              У меня есть младший брат. Он только начал учиться в старшей школе.
+              Ему 14 лет, и он живёт с моими родителями. Они живут на Малберри-стрит в Бостоне.
+              Иногда они навещают меня в Нью-Йорке. Я рад, когда они приезжают.
+              Мама всегда привозит мне сладости и конфеты. Я тоже очень по ним скучаю!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vocabulary" class="panel">
+      <div class="section-card">
+        <h2 data-lang="kk">Vocabulary — сөздік</h2>
+        <h2 data-lang="ru">Vocabulary — словарь</h2>
+        <p class="section-intro" data-lang="kk">Мәтіндегі негізгі сөздер мен тұрақты тіркестер.</p>
+        <p class="section-intro" data-lang="ru">Основные слова и устойчивые выражения из текста.</p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>English</th>
+                <th>Қазақша</th>
+                <th>Русский</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>college</td><td>колледж</td><td>колледж</td><td>a student in college</td></tr>
+              <tr><td>course</td><td>пән, курс</td><td>предмет, курс</td><td>my hardest course</td></tr>
+              <tr><td>favorite</td><td>сүйікті</td><td>любимый</td><td>favorite courses</td></tr>
+              <tr><td>hardest</td><td>ең қиын</td><td>самый трудный</td><td>English is my hardest course.</td></tr>
+              <tr><td>professor</td><td>оқытушы, профессор</td><td>преподаватель, профессор</td><td>My professors are friendly.</td></tr>
+              <tr><td>campus</td><td>кампус</td><td>кампус</td><td>near the college campus</td></tr>
+              <tr><td>share a house</td><td>үйде бірге тұру</td><td>делить дом, жить вместе</td><td>I share the house with three students.</td></tr>
+              <tr><td>each other</td><td>бір-біріне</td><td>друг другу</td><td>We help each other.</td></tr>
+              <tr><td>homework</td><td>үй тапсырмасы</td><td>домашнее задание</td><td>help with homework</td></tr>
+              <tr><td>younger brother</td><td>іні</td><td>младший брат</td><td>I have a younger brother.</td></tr>
+              <tr><td>high school</td><td>жоғары сынып, орта мектеп</td><td>старшая школа</td><td>He started high school.</td></tr>
+              <tr><td>sometimes</td><td>кейде</td><td>иногда</td><td>Sometimes they visit me.</td></tr>
+              <tr><td>visit</td><td>қонаққа келу</td><td>навещать</td><td>They visit me in New York.</td></tr>
+              <tr><td>sweets and candy</td><td>тәттілер мен кәмпит</td><td>сладости и конфеты</td><td>Mom brings sweets and candy.</td></tr>
+              <tr><td>miss someone</td><td>біреуді сағыну</td><td>скучать по кому-либо</td><td>I really miss them.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="synonyms" class="panel">
+      <div class="section-card">
+        <h2 data-lang="kk">Синонимдер және парафраздар</h2>
+        <h2 data-lang="ru">Синонимы и перефразирование</h2>
+        <p class="section-intro" data-lang="kk">
+          Тест сұрағында мәтіндегі сөздер дәл қайталанбай, синониммен немесе парафразбен берілуі мүмкін.
+        </p>
+        <p class="section-intro" data-lang="ru">
+          В вопросе слова из текста могут быть заменены синонимами или перефразированы.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Word / phrase</th>
+                <th>Close synonym / paraphrase</th>
+                <th>Қазақша</th>
+                <th>Русский</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>go to college</td><td>study at college / attend college</td><td>колледжде оқу</td><td>учиться в колледже</td></tr>
+              <tr><td>hardest course</td><td>most difficult subject</td><td>ең қиын пән</td><td>самый трудный предмет</td></tr>
+              <tr><td>favorite courses</td><td>subjects he likes most</td><td>ең ұнататын пәндері</td><td>любимые предметы</td></tr>
+              <tr><td>share the house</td><td>live in the same house</td><td>бір үйде бірге тұру</td><td>жить в одном доме</td></tr>
+              <tr><td>near</td><td>close to / not far from</td><td>жақын</td><td>рядом, недалеко</td></tr>
+              <tr><td>younger brother</td><td>little brother / sibling who is younger</td><td>іні</td><td>младший брат</td></tr>
+              <tr><td>sometimes</td><td>occasionally / from time to time</td><td>кейде</td><td>иногда, время от времени</td></tr>
+              <tr><td>visit</td><td>come to see</td><td>қонаққа келу</td><td>приезжать в гости</td></tr>
+              <tr><td>bring</td><td>take something to someone</td><td>әкелу</td><td>приносить, привозить</td></tr>
+              <tr><td>on the weekend</td><td>at weekends</td><td>демалыс күндері</td><td>по выходным</td></tr>
+              <tr><td>miss them</td><td>wish they were here</td><td>оларды сағыну</td><td>скучать по ним</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="translation-block" style="margin-top:16px">
+          <strong data-lang="kk">Маңызды парафраз:</strong>
+          <strong data-lang="ru">Важный перефраз:</strong>
+          <p>
+            “English is my hardest course” = “English is the most difficult subject for John.”
+          </p>
+          <p>
+            “Sometimes they visit me” = “His parents come to see him from time to time.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="strategy" class="panel">
+      <div class="section-card">
+        <h2 data-lang="kk">Reading тапсырмасын орындау тәсілі</h2>
+        <h2 data-lang="ru">Как выполнять это задание</h2>
+
+        <div class="tips" data-lang="kk">
+          <div class="tip">
+            <h3>Алдымен сұрақтарды оқыңыз</h3>
+            <p>City, hardest course, housemates, age, visits, sport сияқты кілт сөздерді белгілеңіз.</p>
+          </div>
+          <div class="tip">
+            <h3>Мәтінді үш бөлікке бөліңіз</h3>
+            <p>1-бөлік — оқу; 2-бөлік — үйі мен достары; 3-бөлік — отбасы.</p>
+          </div>
+          <div class="tip">
+            <h3>Сандар мен жалқы есімдерді белгілеңіз</h3>
+            <p>John — 19, younger brother — 14, New York, Boston, Bill, Tony, Paul.</p>
+          </div>
+          <div class="tip">
+            <h3>Favorite және hardest сөздерін шатастырмаңыз</h3>
+            <p>Favorite: Geometry, French, History. Hardest: English.</p>
+          </div>
+          <div class="tip">
+            <h3>Сұрақтағы синонимді мәтінмен салыстырыңыз</h3>
+            <p>Come to see = visit; most difficult subject = hardest course; at weekends = on the weekend.</p>
+          </div>
+          <div class="tip">
+            <h3>Жауапты мәтіннен дәлелдеңіз</h3>
+            <p>Нұсқаны таңдағаннан кейін, оны дәлелдейтін сөйлемді мәтіннен табыңыз.</p>
+          </div>
+        </div>
+
+        <div class="tips" data-lang="ru">
+          <div class="tip">
+            <h3>Сначала прочитайте вопросы</h3>
+            <p>Отметьте ключевые слова: city, hardest course, housemates, age, visits, sport.</p>
+          </div>
+          <div class="tip">
+            <h3>Разделите текст на три части</h3>
+            <p>Часть 1 — учёба; часть 2 — дом и друзья; часть 3 — семья.</p>
+          </div>
+          <div class="tip">
+            <h3>Выделите числа и имена</h3>
+            <p>John — 19, younger brother — 14, New York, Boston, Bill, Tony, Paul.</p>
+          </div>
+          <div class="tip">
+            <h3>Не путайте favorite и hardest</h3>
+            <p>Favorite: Geometry, French, History. Hardest: English.</p>
+          </div>
+          <div class="tip">
+            <h3>Сопоставляйте синонимы</h3>
+            <p>Come to see = visit; most difficult subject = hardest course; at weekends = on the weekend.</p>
+          </div>
+          <div class="tip">
+            <h3>Подтверждайте ответ текстом</h3>
+            <p>После выбора варианта найдите предложение, которое прямо подтверждает ответ.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>My Name Is John · A1 Reading Practice</footer>
+
+  <script>
+    const questions = [
+      {
+        type:"original",
+        q:"Where does John Smith go to college?",
+        options:["New York","Boston","Berlin","Paris"],
+        correct:0,
+        answer:"A — New York.",
+        kk:{
+          translation:"Джон Смит колледжге қай қалада барады?",
+          explanation:"Мәтінде: “I go to college in New York” деп нақты айтылады."
+        },
+        ru:{
+          translation:"В каком городе Джон Смит учится в колледже?",
+          explanation:"В тексте прямо сказано: “I go to college in New York”."
+        }
+      },
+      {
+        type:"original",
+        q:"What is John Smith’s hardest course?",
+        options:["English","French","Art","Math"],
+        correct:0,
+        answer:"A — English.",
+        kk:{
+          translation:"Джон Смит үшін ең қиын пән қайсы?",
+          explanation:"Мәтінде: “English is my hardest course” делінген."
+        },
+        ru:{
+          translation:"Какой предмет для Джона Смита самый трудный?",
+          explanation:"В тексте сказано: “English is my hardest course”."
+        }
+      },
+      {
+        type:"original",
+        q:"Who shares a house with John Smith?",
+        options:["Frank, Tony, and Mike","Bill, Tony, and Paul","Anna, Margaret, and Tanya","Bill, John, and Tom"],
+        correct:1,
+        answer:"B — Bill, Tony, and Paul.",
+        kk:{
+          translation:"Джон Смитпен бір үйде кімдер тұрады?",
+          explanation:"Ол үйді үш студентпен бөліседі: Bill, Tony және Paul."
+        },
+        ru:{
+          translation:"Кто живёт в одном доме с Джоном Смитом?",
+          explanation:"Он делит дом с тремя студентами: Bill, Tony и Paul."
+        }
+      },
+      {
+        type:"original",
+        q:"How old is John Smith’s younger brother?",
+        options:["Fourteen","Seven","Eleven","Thirteen"],
+        correct:0,
+        answer:"A — Fourteen.",
+        kk:{
+          translation:"Джон Смиттің інісі неше жаста?",
+          explanation:"Мәтінде інісі туралы: “He is 14” деп жазылған."
+        },
+        ru:{
+          translation:"Сколько лет младшему брату Джона Смита?",
+          explanation:"О младшем брате в тексте сказано: “He is 14”."
+        }
+      },
+      {
+        type:"original",
+        q:"What does John Smith’s Mom bring him when they visit?",
+        options:["Candy and ice cream","Flowers and coffee","Sweets and candy","Fruits and vegetables"],
+        correct:2,
+        answer:"C — Sweets and candy.",
+        kk:{
+          translation:"Джонның анасы қонаққа келгенде оған не әкеледі?",
+          explanation:"Мәтінде: “My Mom always brings me sweets and candy” делінген."
+        },
+        ru:{
+          translation:"Что мама Джона привозит ему, когда они приезжают?",
+          explanation:"В тексте сказано: “My Mom always brings me sweets and candy”."
+        }
+      },
+      {
+        type:"possible",
+        q:"How old is John Smith?",
+        options:["Fourteen","Nineteen","Twenty","Seventeen"],
+        correct:1,
+        answer:"B — Nineteen.",
+        kk:{
+          translation:"Джон Смит неше жаста?",
+          explanation:"Бірінші абзацта: “I am 19” деп айтылады."
+        },
+        ru:{
+          translation:"Сколько лет Джону Смиту?",
+          explanation:"В первом абзаце сказано: “I am 19”."
+        }
+      },
+      {
+        type:"possible",
+        q:"What are John’s favorite courses?",
+        options:["English, Math, and Art","Geometry, French, and History","History, Biology, and Music","French, English, and Geography"],
+        correct:1,
+        answer:"B — Geometry, French, and History.",
+        kk:{
+          translation:"Джонның сүйікті пәндері қандай?",
+          explanation:"Мәтінде оның сүйікті пәндері Geometry, French және History екені жазылған."
+        },
+        ru:{
+          translation:"Какие предметы являются любимыми у Джона?",
+          explanation:"В тексте перечислены его любимые предметы: Geometry, French и History."
+        }
+      },
+      {
+        type:"possible",
+        q:"How often do John’s parents visit him in New York?",
+        options:["Every day","Never","Sometimes","Every weekend"],
+        correct:2,
+        answer:"C — Sometimes.",
+        kk:{
+          translation:"Джонның ата-анасы оған Нью-Йоркке қаншалықты жиі келеді?",
+          explanation:"Мәтінде: “Sometimes they visit me in New York” делінген."
+        },
+        ru:{
+          translation:"Как часто родители Джона навещают его в Нью-Йорке?",
+          explanation:"В тексте сказано: “Sometimes they visit me in New York”."
+        }
+      },
+      {
+        type:"possible",
+        q:"What sport does John play with his housemates on the weekend?",
+        options:["Basketball","Baseball","Tennis","Football"],
+        correct:3,
+        answer:"D — Football.",
+        kk:{
+          translation:"Джон демалыс күндері үйдегі достарымен қандай спорт ойнайды?",
+          explanation:"Мәтінде: “On the weekend, we play football together” деп жазылған."
+        },
+        ru:{
+          translation:"В какой вид спорта Джон играет с соседями по дому по выходным?",
+          explanation:"В тексте сказано: “On the weekend, we play football together”."
+        }
+      }
+    ];
+
+    const questionsEl = document.getElementById("questions");
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+    const resultBox = document.getElementById("result");
+    const scoreEl = document.getElementById("score");
+    const resultMessage = document.getElementById("resultMessage");
+
+    function currentLang(){
+      return document.body.classList.contains("lang-ru") ? "ru" : "kk";
+    }
+
+    function renderQuestions(){
+      questionsEl.innerHTML = questions.map((item,index)=>{
+        const letters = ["A","B","C","D"];
+        const typeKK = item.type === "original" ? "Түпнұсқа сұрақ" : "Мүмкін сұрақ";
+        const typeRU = item.type === "original" ? "Оригинальный вопрос" : "Возможный вопрос";
+
+        return `
+          <article class="question" data-question="${index}">
+            <div class="q-top">
+              <div class="q-number">${index+1}</div>
+              <div class="q-type">
+                <span data-lang="kk">${typeKK}</span>
+                <span data-lang="ru">${typeRU}</span>
+              </div>
+            </div>
+            <h3>${item.q}</h3>
+            <div class="options">
+              ${item.options.map((option,optIndex)=>`
+                <label class="option">
+                  <input type="radio" name="q${index}" value="${optIndex}">
+                  <span class="letter">${letters[optIndex]}</span>
+                  <span>${option}</span>
+                </label>
+              `).join("")}
+            </div>
+            <div class="explanation">
+              <p class="answer-line">
+                <span data-lang="kk">Дұрыс жауап:</span>
+                <span data-lang="ru">Правильный ответ:</span>
+                ${item.answer}
+              </p>
+              <p>
+                <strong data-lang="kk">Сұрақтың аудармасы:</strong>
+                <strong data-lang="ru">Перевод вопроса:</strong>
+                <span data-lang="kk">${item.kk.translation}</span>
+                <span data-lang="ru">${item.ru.translation}</span>
+              </p>
+              <p>
+                <span data-lang="kk">${item.kk.explanation}</span>
+                <span data-lang="ru">${item.ru.explanation}</span>
+              </p>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      questionsEl.querySelectorAll(".option").forEach(label=>{
+        label.addEventListener("click",()=>{
+          const question = label.closest(".question");
+          question.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));
+          label.classList.add("selected");
+          updateProgress();
+        });
+      });
+    }
+
+    function updateProgress(){
+      const answered = questions.filter((_,i)=>
+        document.querySelector(`input[name="q${i}"]:checked`)
+      ).length;
+      progressText.textContent = `${answered} / ${questions.length}`;
+      progressFill.style.width = `${(answered/questions.length)*100}%`;
+    }
+
+    function showResult(){
+      let score = 0;
+
+      questions.forEach((item,index)=>{
+        const question = document.querySelector(`[data-question="${index}"]`);
+        const selected = question.querySelector(`input[name="q${index}"]:checked`);
+        const options = [...question.querySelectorAll(".option")];
+
+        options.forEach((option,optIndex)=>{
+          option.classList.remove("correct","wrong");
+          if(optIndex === item.correct) option.classList.add("correct");
+        });
+
+        if(selected){
+          const chosen = Number(selected.value);
+          if(chosen === item.correct){
+            score++;
+          }else{
+            options[chosen].classList.add("wrong");
+          }
+        }
+
+        question.querySelector(".explanation").classList.add("show");
+      });
+
+      scoreEl.textContent = `${score} / ${questions.length}`;
+      const lang = currentLang();
+      const percent = Math.round(score/questions.length*100);
+
+      if(lang === "kk"){
+        resultMessage.textContent =
+          percent === 100 ? "Өте жақсы! Барлық жауап дұрыс." :
+          percent >= 70 ? "Жақсы нәтиже! Қате кеткен сұрақтардың түсіндірмесін қайталаңыз." :
+          "Мәтінді және түсіндірмелерді қайта оқып, тестті тағы бір рет орындаңыз.";
+      }else{
+        resultMessage.textContent =
+          percent === 100 ? "Отлично! Все ответы правильные." :
+          percent >= 70 ? "Хороший результат! Повторите объяснения к вопросам, где были ошибки." :
+          "Перечитайте текст и объяснения, затем пройдите тест ещё раз.";
+      }
+
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({behavior:"smooth",block:"center"});
+    }
+
+    function resetTest(){
+      document.querySelectorAll('input[type="radio"]').forEach(input=>input.checked=false);
+      document.querySelectorAll(".option").forEach(x=>x.classList.remove("selected","correct","wrong"));
+      document.querySelectorAll(".explanation").forEach(x=>x.classList.remove("show"));
+      resultBox.classList.remove("show");
+      scoreEl.textContent = `0 / ${questions.length}`;
+      updateProgress();
+      window.scrollTo({top:document.getElementById("test").offsetTop-80,behavior:"smooth"});
+    }
+
+    document.querySelectorAll("[data-set-lang]").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        const lang = btn.dataset.setLang;
+        document.body.classList.toggle("lang-kk",lang==="kk");
+        document.body.classList.toggle("lang-ru",lang==="ru");
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-set-lang]").forEach(x=>x.classList.toggle("active",x===btn));
+
+        if(resultBox.classList.contains("show")) showResult();
+      });
+    });
+
+    document.querySelectorAll(".tab-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll(".tab-btn").forEach(x=>x.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById(btn.dataset.tab).classList.add("active");
+        window.scrollTo({top:document.querySelector(".tabs-wrap").offsetTop-64,behavior:"smooth"});
+      });
+    });
+
+    document.getElementById("checkBtn").addEventListener("click",showResult);
+    document.getElementById("resetBtn").addEventListener("click",resetTest);
+
+    renderQuestions();
+    updateProgress();
+  </script>
+</body>
+</html>
